@@ -13,7 +13,7 @@ import Link from "next/link";
 
 interface CardWrapperProps {
   title: "Welcome back" | "Welcome";
-  children?: React.ReactNode;
+  children: React.ReactNode;
   accountText: "Don't have an account? " | "Already have an account";
   url: "sign-in" | "sign-up";
 }
@@ -29,7 +29,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       <CardHeader>
         <CardDescription className="my-2 text-xl">{title}</CardDescription>
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent className="w-full">{children}</CardContent>
       <CardFooter className="w-full flex flex-col space-y-4">
         <SocialIcons />
         <div className="my-2">

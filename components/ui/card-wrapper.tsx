@@ -14,7 +14,7 @@ import Link from "next/link";
 interface CardWrapperProps {
   title: "Welcome back" | "Welcome";
   children: React.ReactNode;
-  accountText: "Don't have an account? " | "Already have an account";
+  accountText: "Don't have an account? " | "Already have an account?";
   url: "sign-in" | "sign-up";
 }
 

@@ -19,6 +19,7 @@ export const SignUpForm = () => {
   const form = useForm<typeRegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },

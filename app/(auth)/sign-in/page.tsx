@@ -1,5 +1,6 @@
 import { CardWrapper } from "@/components/ui/card-wrapper";
 import { Heading } from "@/components/ui/heading";
+import { SignInForm } from "@/components/ui/sign-in-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +16,9 @@ export default function SignInPage() {
         title="Welcome back"
         accountText="Don't have an account? "
         url="sign-up"
-      />
+      >
+        <SignInForm />
+      </CardWrapper>
     </div>
   );
 }

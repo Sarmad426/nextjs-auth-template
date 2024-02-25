@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState, useTransition } from "react";
 
 import { registerSchema, typeRegisterSchema } from "@/schema";
 import {
@@ -14,8 +15,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { register } from "@/actions/register";
+import { FormError } from "@/components/ui/form-error";
+import { FormSuccess } from "@/components/ui/form-success";
 
 export const SignUpForm = () => {
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
+
   const form = useForm<typeRegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -26,7 +34,15 @@ export const SignUpForm = () => {
   });
 
   const onSubmit = (values: typeRegisterSchema) => {
-    console.log(values);
+    setError("");
+    setSuccess("");
+
+    startTransition(() => {
+      register(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
   };
   return (
     <Form {...form}>
@@ -43,6 +59,7 @@ export const SignUpForm = () => {
                     {...field}
                     placeholder="Sarmad Rafique"
                     className="w-full"
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormMessage />
@@ -62,6 +79,7 @@ export const SignUpForm = () => {
                     {...field}
                     placeholder="sarmad@email.com"
                     className="w-full"
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormMessage />
@@ -82,6 +100,7 @@ export const SignUpForm = () => {
                     type="password"
                     placeholder="******"
                     className="w-full"
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormMessage />
@@ -89,8 +108,10 @@ export const SignUpForm = () => {
             )}
           />
         </div>
+        <FormError message={error} />
+        <FormSuccess message={success} />
         <div className="my-2 flex justify-center items-center w-full">
-          <Button className="w-3/5" size="lg">
+          <Button className="w-3/5" size="lg" disabled={isPending}>
             Register
           </Button>
         </div>

@@ -26,5 +26,5 @@ export const register = async (data: typeRegisterSchema) => {
 
     await prisma?.user.create({ data: { name, email, password: hashedPassword } })
 
-    return { success: "Verify Email" }
+    return { success: "Email Sent" }
 }
